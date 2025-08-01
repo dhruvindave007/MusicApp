@@ -1,0 +1,19 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'music/style.css' %}">
+  <h2>{{ track.title }} by {{ track.artist }}</h2>
+  <p><strong>Album:</strong> {{ track.album }}</p>
+  <p><strong>Genre:</strong> {{ track.genre }}</p>
+  <p><strong>Release Date:</strong> {{ track.release_date }}</p>
+
+  {% if track.audio_file %}
+    <audio controls>
+      <source src="{{ track.audio_file.url }}" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+  {% endif %}
+
+  <div style="margin-top: 20px;">
+    <a href="{% url 'track_update' track.pk %}">Edit</a> |
+    <a href="{% url 'track_delete' track.pk %}">Delete</a> |
+    <a href="{% url 'track_list' %}">Back to List</a>
+  </div>

@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ track.title }}</title>
+    <link rel="stylesheet" href="{% static 'music/style.css' %}">
+</head>
+<body>
+    <h2>{{ track.title }} by {{ track.artist }}</h2>
+    <p>Album: {{ track.album }}</p>
+    <p>Genre: {{ track.genre }}</p>
+    <p>Release Date: {{ track.release_date }}</p>
+    {% if track.audio_file %}
+        <audio controls>
+            <source src="{{ track.audio_file.url }}" type="audio/mpeg">
+        </audio>
+    {% endif %}
+    {% if track.pk %}
+        <a href="{% url 'track_update' track.pk %}">Edit</a> |
+        <a href="{% url 'track_delete' track.pk %}">Delete</a>
+    {% else %}
+        <p style="color: red;">Missing PK for {{ track.title }}</p>
+    {% endif %}
+    <a href="{% url 'track_list' %}">Back to list</a>
+</body>
+</html>

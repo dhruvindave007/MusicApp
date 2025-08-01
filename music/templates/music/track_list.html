@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Tracks</title>
+    <link rel="stylesheet" href="{% static 'music/style.css' %}">
+</head>
+<body>
+    <h2>All Tracks</h2>
+    <a class="btn-add" href="{% url 'track_create' %}">+ Add New Track</a>
+    
+    {% if tracks %}
+      <ul class="track-list">
+      {% for track in tracks %}
+          <li class="track-item">
+              <span class="track-title">{{ track.title }}</span>
+              {% if track.pk %}
+              <div class="track-buttons">
+                  <a href="{% url 'track_detail' track.pk %}" class="detail-btn">Details</a>
+                  <a href="{% url 'track_update' track.pk %}" class="edit-btn">Edit</a>
+                  <a href="{% url 'track_delete' track.pk %}" class="delete-btn">Delete</a>
+              </div>
+              {% else %}
+                  <span>(No ID)</span>
+              {% endif %}
+          </li>
+      {% endfor %}
+      </ul>
+    {% else %}
+      <p>No tracks added yet.</p>
+    {% endif %}
+</body>
+</html>
